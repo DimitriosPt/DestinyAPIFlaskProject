@@ -1,4 +1,7 @@
+from asyncio.windows_events import NULL
 from flask import Flask, render_template
+import config
+import requests
 
 app = Flask(__name__)
 
@@ -13,3 +16,7 @@ def index():
 @app.route('/about')
 def about():
 	return render_template('about.html')
+
+
+def request_postmasterContents():
+	return NULL
