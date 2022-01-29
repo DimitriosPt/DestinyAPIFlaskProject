@@ -1,6 +1,4 @@
-from asyncio.windows_events import NULL
 from flask import Flask, render_template
-import config
 import requests
 
 app = Flask(__name__)
@@ -17,6 +15,8 @@ def index():
 def about():
 	return render_template('about.html')
 
-
-def request_postmasterContents():
-	return NULL
+@app.route('/manifest')
+def manifest():
+	HEADERS = {"X-API-Key":'MY-X-API-Key'}
+	response = requests.get('https://www.bungie.net/Platform/Destiny2/Manifest/', headers=HEADERS)
+	return response.json()
