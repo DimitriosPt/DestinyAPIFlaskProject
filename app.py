@@ -1,6 +1,5 @@
-from distutils.command import config
-import secrets
 from flask import Flask, render_template
+import sqlite3
 import secrets
 import requests
 
@@ -16,8 +15,16 @@ def about():
 
 @app.route('/manifest')
 def manifest():
-	HEADERS = {"X-API-Key":'0ee4d3d2c37241cab72adef18a885b43'}
+	HEADERS = {"X-API-Key": secrets.X_API_Key}
 	response = requests.get('https://www.bungie.net/Platform/Destiny2/Manifest/')
 	textToPrint = response.json()['Response']
 	print(textToPrint)
 	return render_template('manifest.html', manifest=textToPrint)
+
+@app.route('/strikes')
+def strikes():
+	HEADERS = {"X-API-Key": secrets.X_API_Key}
+	response = requests.get('https://www.bungie.net/Platform/Destiny2/Milestones/', headers=HEADERS)
+	nightfall_endpoint = response.json()['Response']['1942283261']['activities']
+	print (nightfall_endpoint)
+	return render_template('manifest.html',manifest=nightfall_endpoint)
