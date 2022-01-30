@@ -1,10 +1,14 @@
+from operator import truediv
 from flask import Flask, render_template
+import zipfile
+import io
 import sqlite3
 import secrets
 import requests
 
 app = Flask(__name__)
 destinyAPIRoot = 'https://www.bungie.net/Platform/Destiny2'
+destinyManifestRoot = 'https://www.bungie.net/'
 
 @app.route('/')
 def index():
@@ -19,7 +23,11 @@ def manifest():
 	HEADERS = {"X-API-Key": secrets.X_API_Key}
 	response = requests.get(f'{destinyAPIRoot}/Manifest/')
 	responseManifest = response.json()['Response']
-	print(responseManifest)
+	mobileAssetContentPath = responseManifest['mobileAssetContentPath']
+	sqlitePath = f'{destinyManifestRoot}{mobileAssetContentPath}'
+	sqliteZip = requests.get(sqlitePath, stream=True)
+	z = zipfile.ZipFile(io.BytesIO(sqliteZip.content))
+	z.extractall('/home/ptdimitrios/Programming/Personal Projects/DestinyAPIProject/DestinyAPIFlaskProject')
 	return render_template('manifest.html', manifest=responseManifest)
 
 @app.route('/strikes')
