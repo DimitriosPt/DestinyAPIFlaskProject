@@ -4,6 +4,7 @@ import secrets
 import requests
 
 app = Flask(__name__)
+destinyAPIRoot = 'https://www.bungie.net/Platform/Destiny2'
 
 @app.route('/')
 def index():
@@ -16,15 +17,15 @@ def about():
 @app.route('/manifest')
 def manifest():
 	HEADERS = {"X-API-Key": secrets.X_API_Key}
-	response = requests.get('https://www.bungie.net/Platform/Destiny2/Manifest/')
-	textToPrint = response.json()['Response']
-	print(textToPrint)
-	return render_template('manifest.html', manifest=textToPrint)
+	response = requests.get(f'{destinyAPIRoot}/Manifest/')
+	responseManifest = response.json()['Response']
+	print(responseManifest)
+	return render_template('manifest.html', manifest=responseManifest)
 
 @app.route('/strikes')
 def strikes():
 	HEADERS = {"X-API-Key": secrets.X_API_Key}
-	response = requests.get('https://www.bungie.net/Platform/Destiny2/Milestones/', headers=HEADERS)
-	nightfall_endpoint = response.json()['Response']['1942283261']['activities']
-	print (nightfall_endpoint)
-	return render_template('manifest.html',manifest=nightfall_endpoint)
+	response = requests.get(f'{destinyAPIRoot}/Milestones/', headers=HEADERS)
+	strikes_endpoint = response.json()['Response']['1942283261']['activities']
+	print (strikes_endpoint)
+	return render_template('strikes.html',strikes=strikes_endpoint)
