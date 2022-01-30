@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+
+{%block title%}Manifest{%endblock%}
+
+{% block content%}
+    <h1>Strikes!</h1>
+    <div>
+        <h2>Strike Contents: </h2>
+        <p>
+            <ul>
+                {% for item in strikes %}
+                <li>
+                    {{item}}
+                </li>
+                {% endfor %}
+            </ul>
+
+        </p>
+    </div>
+{% endblock%}
