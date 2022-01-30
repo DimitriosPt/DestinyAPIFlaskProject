@@ -1,13 +1,12 @@
-from flask import Flask, render_template, jsonify
+from distutils.command import config
+import secrets
+from flask import Flask, render_template
+import secrets
 import requests
 
 app = Flask(__name__)
 
 @app.route('/')
-def hello():
-	return 'Hello World!'
-
-@app.route('/index')
 def index():
 	return render_template('index.html')
 
