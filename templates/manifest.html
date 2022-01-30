@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+
+{%block title%}Manifest{%endblock%}
+
+{% block content%}
+    <h1>Destiny Manifest</h1>
+    <div>
+        <h2>Manifest Contents: </h2>
+        <p>
+            {% for e in manifest %}
+            {{e}}
+            {% endfor %}
+        </p>
+    </div>
+{% endblock%}

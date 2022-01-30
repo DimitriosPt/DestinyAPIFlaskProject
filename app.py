@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 import requests
 
 app = Flask(__name__)
@@ -17,6 +17,8 @@ def about():
 
 @app.route('/manifest')
 def manifest():
-	HEADERS = {"X-API-Key":'MY-X-API-Key'}
-	response = requests.get('https://www.bungie.net/Platform/Destiny2/Manifest/', headers=HEADERS)
-	return response.json()
+	HEADERS = {"X-API-Key":'0ee4d3d2c37241cab72adef18a885b43'}
+	response = requests.get('https://www.bungie.net/Platform/Destiny2/Manifest/')
+	textToPrint = response.json()['Response']
+	print(textToPrint)
+	return render_template('manifest.html', manifest=textToPrint)
