@@ -130,5 +130,5 @@ dmypy.json
 
 # My virtual env
 DestinyAPI_env
-secrets.py
+secretKeys.py
 *.content
