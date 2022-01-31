@@ -5,12 +5,16 @@
 {%block title%}Manifest{%endblock%}
 
 {% block content%}
-    <h1>Destiny Manifest</h1>
+    <h1>Strikes!</h1>
     <div>
-        <h2>Manifest Contents: </h2>
+        <h2>Strike Contents: </h2>
         <p>
             <ul>
-
+                {% for item in strikes %}
+                <li>
+                    {{item}}
+                </li>
+                {% endfor %}
             </ul>
 
         </p>
